@@ -1,6 +1,8 @@
 # Wallet Winrate Checker
 
-This project retrieves and displays information about Solana wallet addresses, including SOL balance, PnL for the last 30 days, winrate, realized profit, and last active timestamp. The user can choose between a 7-day or 30-day period for the winrate.
+This project retrieves and displays information about Solana wallet addresses, including SOL balance, PnL for the selected period (7-day or 30-day), winrate, realized profit, and last active timestamp. Users can choose between a 7-day or 30-day period for the winrate.
+
+**Note:** The results are based on the gmgn.ai API, so they may not always be precise. You may encounter results with anomalies such as zero values or other inconsistencies.
 
 ## Requirements
 
