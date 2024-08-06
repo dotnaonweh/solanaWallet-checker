@@ -72,4 +72,4 @@ Example: 7d
 ```
 
 ## CREDIT
-- GMGN for providing the API used in this project.
+- [gmgn.ai](https://gmgn.ai/) for providing the API used in this project.
