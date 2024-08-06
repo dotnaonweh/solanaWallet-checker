@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 from tabulate import tabulate
 
+# Configuration
 API_URL = 'https://gmgn.ai/defi/quotation/v1/smartmoney/sol/walletNew/'
 HEADERS = {
     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
@@ -26,21 +27,22 @@ def fetch_wallet_data(wallet_address, period):
         print(f'Error fetching data for wallet {wallet_address}: {e}')
         return None
 
-def process_data(data, wallet_address):
+def process_data(data, wallet_address, period):
     if data:
         try:
             sol_balance = data['data']['sol_balance']
-            pnl_30d = data['data']['pnl_30d']
+            pnl_key = 'pnl_30d' if period == '30d' else 'pnl_7d'
+            pnl = data['data'][pnl_key]
             winrate = data['data']['winrate'] if data['data']['winrate'] is not None else 0
             realized_profit = data['data']['realized_profit'] if data['data']['realized_profit'] is not None else 0
             last_active_timestamp = data['data'].get('last_active_timestamp', 0)
-            last_pnl_30d = pnl_30d * 100
+            last_pnl = pnl * 100
             last_winrate = winrate * 100
 
             result = {
                 'Wallet Address': wallet_address,
                 'SOL Balance': f'{float(sol_balance):.2f}',
-                'PnL 30d': f'{round(last_pnl_30d, 2)}%',
+                f'PnL {period}': f'{round(last_pnl, 2)}%',
                 'Winrate': f'{round(last_winrate, 2)}%',
                 'Realized Profit': f'{realized_profit:.2f}$',
                 'Last Active Timestamp': datetime.fromtimestamp(last_active_timestamp).strftime('%Y-%m-%d %H:%M:%S'),
@@ -61,7 +63,7 @@ def main():
         for wallet_address in wallet_addresses:
             if wallet_address.strip():
                 data = fetch_wallet_data(wallet_address, period)
-                result = process_data(data, wallet_address)
+                result = process_data(data, wallet_address, period)
                 
                 if result:
                     results.append(result)
