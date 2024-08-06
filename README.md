@@ -71,8 +71,3 @@ Example: 7d
 
 ## CREDIT
 - GMGN for providing the API used in this project.
-"# solana-wallet-checker" 
-"# solana-wallet-checker" 
-"# solana-wallet-checker" 
-"# solanaWallet-checker" 
-"# solanaWallet-checker" 
