@@ -34,7 +34,8 @@ def process_data(data, wallet_address, period):
             pnl_key = 'pnl_30d' if period == '30d' else 'pnl_7d'
             pnl = data['data'][pnl_key]
             winrate = data['data']['winrate'] if data['data']['winrate'] is not None else 0
-            realized_profit = data['data']['realized_profit'] if data['data']['realized_profit'] is not None else 0
+            realized_profit_key = 'realized_profit_30d' if period == '30d' else 'realized_profit_7d'
+            realized_profit = data['data'][realized_profit_key]
             last_active_timestamp = data['data'].get('last_active_timestamp', 0)
             last_pnl = pnl * 100
             last_winrate = winrate * 100
@@ -44,7 +45,7 @@ def process_data(data, wallet_address, period):
                 'SOL Balance': f'{float(sol_balance):.2f}',
                 f'PnL {period}': f'{round(last_pnl, 2)}%',
                 'Winrate': f'{round(last_winrate, 2)}%',
-                'Realized Profit': f'{realized_profit:.2f}$',
+                f'Realized Profit {period}': f'{realized_profit:.2f}$',
                 'Last Active Timestamp': datetime.fromtimestamp(last_active_timestamp).strftime('%Y-%m-%d %H:%M:%S'),
             }
             return result
