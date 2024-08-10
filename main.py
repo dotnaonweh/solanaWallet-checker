@@ -26,16 +26,15 @@ def fetch_wallet_data(wallet_address, period):
     except requests.RequestException as e:
         print(f'Error fetching data for wallet {wallet_address}: {e}')
         return None
-
 def process_data(data, wallet_address, period):
     if data:
         try:
-            sol_balance = data['data']['sol_balance']
+            sol_balance = data['data']['sol_balance'] if data['data']['sol_balance'] is not None else 0
             pnl_key = 'pnl_30d' if period == '30d' else 'pnl_7d'
-            pnl = data['data'][pnl_key]
+            pnl = data['data'][pnl_key] if data['data'][pnl_key] is not None else 0
             winrate = data['data']['winrate'] if data['data']['winrate'] is not None else 0
             realized_profit_key = 'realized_profit_30d' if period == '30d' else 'realized_profit_7d'
-            realized_profit = data['data'][realized_profit_key]
+            realized_profit = data['data'][realized_profit_key] if data['data'][realized_profit_key] is not None else 0
             last_active_timestamp = data['data'].get('last_active_timestamp', 0)
             last_pnl = pnl * 100
             last_winrate = winrate * 100
