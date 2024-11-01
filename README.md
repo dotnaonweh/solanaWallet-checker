@@ -1,75 +1,60 @@
+
 # Wallet Winrate Checker
 
-This project retrieves and displays information about Solana wallet addresses, including SOL balance, PnL for the selected period (7-day or 30-day), winrate, realized profit, and last active timestamp. Users can choose between a 7-day or 30-day period for the winrate.
+This tool retrieves information about Solana wallet addresses, including the following details:
+- **SOL Balance**
+- **PnL** (Profit/Loss) for the specified period (7-day or 30-day)
+- **Winrate**
+- **Realized Profit**
+- **Last Active Timestamp**
 
-**Note:** The results are based on the gmgn.ai API, so they may not always be precise. You may encounter results with anomalies such as zero values or other inconsistencies.
+It allows users to input a list of wallet addresses, select a winrate period, and outputs filtered results if the winrate exceeds 60%.
+
+## Table of Contents
+- [Features](#features)
+- [Requirements](#requirements)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Example Output](#example-output)
+
+## Features
+- **Select winrate period**: Option to choose between a 7-day or 30-day period.
+- **Data Processing**: Retrieves and displays relevant wallet information.
+- **Filtering**: Saves results only if the winrate is above 60%.
 
 ## Requirements
-
 - Python 3.7+
-- `requests` library
-- `tabulate` library
+- Required Python Packages:
+  - `undetected_chromedriver`
+  - `selenium`
+  - `tabulate`
+  - `termcolor`
 
-## Installation
+## Setup
+1. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-1. Clone the repository:
-```sh
-git clone https://github.com/your-username/wallet-winrate-checker.git
-cd wallet-winrate-checker
-```
-2. Install the required libraries:
-```sh
-pip install requests tabulate
-```
+2. **Set up Chrome version**:
+   Ensure your Chrome version matches the version specified in the script. Update the `TARGET_VERSION` in `bypass.py` if needed.
+
+3. **Add wallet addresses**:
+   Create a file `list.txt` in the same directory, with each wallet address on a new line.
 
 ## Usage
-
-1. Create a `list.txt` file in the project directory and add the wallet addresses you want to check, one per line.
-2. Run the script:
-```sh
-python script.py
-```
-3. When prompted, enter the desired period for the winrate (7d or 30d).
-4. The script will fetch and display the information for each wallet address in a tabular format and save the results to results.txt in JSON format.
-
-## Example
-### Input
-Create a list.txt file with the following content:
-```python
-666B6G6Ge5agUH76uTwpcqaw8FuLuTrQWAc4qKzBg2zC
+To run the script, use:
+```bash
+python bypass.py
 ```
 
-### Running the Script
-```sh
-$ python script.py
-Welcome to Solana Wallet Checker!
-How many days do you want the winrate? 7d/30d
-Example: 7d
-> 
-```
+Follow the on-screen prompts to choose the winrate period (`7d` or `30d`). Results will be displayed in the terminal and saved in `results.txt` if they meet the filtering criteria.
 
-### Output
-#### Console
-```sql
-+----------------------------------------------+---------------+-----------+-----------+-------------------+-------------------------+
-| Wallet Address                               |   SOL Balance | PnL 30d   | Winrate   | Realized Profit   | Last Active Timestamp   |
-+==============================================+===============+===========+===========+===================+=========================+
-| 666B6G6Ge5agUH76uTwpcqaw8FuLuTrQWAc4qKzBg2zC |         666   | 66%       | 66%       | 666$              | 2024-08-06 19:53:18     |
-+----------------------------------------------+---------------+-----------+-----------+-------------------+-------------------------+
+## Example Output
 ```
-`results.txt`
-```json
-[
-    {
-        "Wallet Address": "666B6G6Ge5agUH76uTwpcqaw8FuLuTrQWAc4qKzBg2zC",
-        "SOL Balance": "666",
-        "PnL 30d": "6%",
-        "Winrate": "66%",
-        "Realized Profit": "666",
-        "Last Active Timestamp": "2024-08-06 19:53:18"
-    }
-]
++------------------+-------------+----------+---------+------------------+------------------------+
+| Wallet Address   | SOL Balance | PnL 7d   | Winrate | Realized Profit  | Last Active Timestamp  |
++------------------+-------------+----------+---------+------------------+------------------------+
+| <address>        | 3.14 SOL    | 12.5%    | 65.0%   | 0.50 USD         | 2024-11-01 14:35:22    |
++------------------+-------------+----------+---------+------------------+------------------------+
 ```
-
-## CREDIT
-- [gmgn.ai](https://gmgn.ai/) for providing the API used in this project.
