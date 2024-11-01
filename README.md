@@ -37,7 +37,7 @@ It allows users to input a list of wallet addresses, select a winrate period, an
    ```
 
 2. **Set up Chrome version**:
-   Ensure your Chrome version matches the version specified in the script. Update the `TARGET_VERSION` in `bypass.py` if needed.
+   Ensure your Chrome version matches the version specified in the script. Update the `TARGET_VERSION` in `main.py` if needed.
 
 3. **Add wallet addresses**:
    Create a file `list.txt` in the same directory, with each wallet address on a new line.
@@ -45,7 +45,7 @@ It allows users to input a list of wallet addresses, select a winrate period, an
 ## Usage
 To run the script, use:
 ```bash
-python bypass.py
+python main.py
 ```
 
 Follow the on-screen prompts to choose the winrate period (`7d` or `30d`). Results will be displayed in the terminal and saved in `results.txt` if they meet the filtering criteria.
